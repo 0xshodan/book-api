@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: python manage.py runserver
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver"
     ports:
       - 8000:8000
     restart: always
@@ -23,5 +23,3 @@ services:
       - db
     volumes:
       - .:/app
-    stdin_open: true 
-    tty: true

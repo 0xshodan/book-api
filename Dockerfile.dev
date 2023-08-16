@@ -35,9 +35,4 @@ COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
 
 RUN poetry install
 
-# will become mountpoint of our code
 WORKDIR /app/src
-# RUN python manage.py makemigrations
-# RUN python app/src/manage.py migrate
-# EXPOSE 8000
-# CMD ["python3", "manage.py", "runserver"]
