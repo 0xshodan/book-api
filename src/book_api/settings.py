@@ -56,21 +56,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "book_api.wsgi.application"
 
+DB_TYPE = os.getenv("DB_TYPE", "sqlite")
 if "test" in sys.argv:
     DATABASE = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": ":memory:",
     }
-else:
+elif DB_TYPE == "postgres":
     DATABASE = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": "db",
+        "HOST": os.getenv("DB_HOST", "db"),
         "PORT": os.getenv("DB_PORT", "5432"),
     }
-
+else:
+    DATABASE = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 DATABASES = {"default": DATABASE}
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,5 +102,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
