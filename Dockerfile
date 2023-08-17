@@ -28,6 +28,6 @@ RUN poetry install --only main
 
 
 FROM python-base as production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
 COPY . /app
 WORKDIR /app/src
