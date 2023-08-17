@@ -29,6 +29,5 @@ RUN poetry install --only main
 
 FROM python-base as production
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./src /app/
-WORKDIR /app
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
+COPY . /app
+WORKDIR /app/src

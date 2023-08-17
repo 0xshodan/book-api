@@ -1,6 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import sys
+
 
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,9 +54,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "book_api.wsgi.application"
 
-
-DATABASES = {
-    "default": {
+if "test" in sys.argv:
+    DATABASE = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
+    }
+else:
+    DATABASE = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
@@ -62,7 +68,8 @@ DATABASES = {
         "HOST": "db",
         "PORT": os.getenv("DB_PORT", "5432"),
     }
-}
+
+DATABASES = {"default": DATABASE}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
