@@ -64,5 +64,7 @@ python3 manage.py runserver
 ## FINISH:
 
 GOTO: [swagger](http://localhost:8000/swagger/)
+
 GOTO: [admin](http://localhost:8000/admin/)
+
 GOTO: [drf-docs](http://localhost:8000/api/)
