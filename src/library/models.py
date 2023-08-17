@@ -7,6 +7,9 @@ class Author(models.Model):
     date_of_birth = models.DateField(null=True, blank=True, verbose_name="Birth date")
     biography = models.TextField(null=True, blank=True, verbose_name="Biography")
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 
 class Book(models.Model):
     title = models.CharField(max_length=255, verbose_name="Title")
@@ -15,3 +18,6 @@ class Book(models.Model):
     author = models.ForeignKey(
         Author, on_delete=models.CASCADE, related_name="books", verbose_name="Author"
     )
+
+    def __str__(self):
+        return f"{self.title} — {self.author}"
