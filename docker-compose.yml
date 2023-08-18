@@ -18,6 +18,18 @@ services:
     container_name: app
     command: sh -c "python manage.py makemigrations & python manage.py migrate & python manage.py createsuperuser --noinput & python manage.py runserver 0.0.0.0:8000"
     build: .
+    environment:
+      - DJANGO_SECRET=${DJANGO_SECRET}
+      - DEBUG=${DEBUG}
+      - DB_USER=${DB_USER}
+      - DB_TYPE=${DB_TYPE}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
     ports:
       - 8000:8000
     restart: always
