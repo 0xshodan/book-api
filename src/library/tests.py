@@ -3,6 +3,7 @@ from .serializers import AuthorSerializer, BookSerializer
 from datetime import date
 from rest_framework.test import APITestCase
 from book_api.base_test import BaseEndpointTest
+from django.contrib.auth.models import User
 
 
 class AuthorEndpointTest(APITestCase):
@@ -23,6 +24,10 @@ class AuthorEndpointTest(APITestCase):
                 "biography": "{}",
             },
         )
+        self.user = User.objects.create_user(
+            username="john", email="jlennon@beatles.com", password="glass onion"
+        )
+        self.client.force_authenticate(self.user)
 
     def test_list(self) -> None:
         self.test_class.test_list()
@@ -76,6 +81,10 @@ class BookEndpointTest(APITestCase):
                 "author": Author(id=1, first_name="das", last_name="sad"),
             },
         )
+        self.user = User.objects.create_user(
+            username="john", email="jlennon@beatles.com", password="glass onion"
+        )
+        self.client.force_authenticate(self.user)
 
     def test_list(self) -> None:
         Author(id=1, first_name="das", last_name="sad").save()
